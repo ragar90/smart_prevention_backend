@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   def sign_up
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].permit!)
     pd = ParseData.new
-    user_response = pd.parse_create_user(params[:user])
+    user_response = pd.parse_create_user(params[:user].permit!)
     if user_response["sessionToken"] and user_response["objectId"]
       @user.parse_id = user_response["objectId"]
       @user.session_token = user_response["sessionToken"]
