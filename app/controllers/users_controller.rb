@@ -75,4 +75,25 @@ class UsersController < ApplicationController
       @results = User.get_parse_all
     end
   end
+
+  def edit
+    @user = User.where(parse_id: params[:parse_id]).first
+    respond_to do |format|
+      format.json{render @user}
+    end
+  end
+
+  def update
+    @user = User.where(parse_id: params[:parse_id]).first
+    if @user.update_attributes(params[:user].permit!)
+      @user.update_to_parse
+      respond_to do |format|
+        format.json{render json: @user}
+      end
+    else
+      respond_to do |format|
+        format.json{ render json: @user.errors}
+      end
+    end
+  end
 end

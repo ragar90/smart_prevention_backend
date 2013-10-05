@@ -14,7 +14,7 @@ development:
   database: smart_prevention_development
   pool: 5
   username: root
-  password:
+  password: @moizest89sv
   socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -26,7 +26,7 @@ test:
   database: smart_prevention_test
   pool: 5
   username: root
-  password:
+  password: @moizest89sv
   socket: /var/lib/mysql/mysql.sock
 
 production:
@@ -35,5 +35,5 @@ production:
   database: smart_prevention_production
   pool: 5
   username: root
-  password:
+  password: @moizest89sv
   socket: /var/lib/mysql/mysql.sock
