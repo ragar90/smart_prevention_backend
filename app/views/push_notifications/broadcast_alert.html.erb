@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>SmartPrevention</title>
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body class = "<%=@alert_type_style%>">
+		<h1 class = "panic-text"><%= @state_label%></h1>
+		<%= link_to @post_alert_url, class: "button-link", method: :post do %>
+			<div class= "panic-button">
+				<%= image_tag @next_image%>
+			</div>
+		<% end %>
+	</body>
+</html>
+
+

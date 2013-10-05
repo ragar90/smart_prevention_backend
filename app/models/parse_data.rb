@@ -131,8 +131,6 @@ class ParseData
 	 end
 	#----Parse User Methods-----
 
-
-
   def get_results(req,url)
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
@@ -165,7 +163,6 @@ class ParseData
     if params_format=="json"  
       req.body = params.to_json  if params
       req.set_content_type("application/json")
-      puts req.body
     else
       unless params.nil?
         req.set_form_data(params, ';')

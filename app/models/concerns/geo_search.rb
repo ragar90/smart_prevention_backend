@@ -4,12 +4,13 @@ module GeoSearch
 	module ClassMethods
 		def geo_perimeter(center,distance)
 			latitude_equivalence = 111.044736
+			puts "latitude=>#{center["latitude"]}"
 			range = {longitude:{min: 0,max: 0}, latitude:{min:0, max: 0}}
-			radian_latitud = center[:latitude] * Math::PI/180
-			range[:longitude][:min] = center[:longitude] - (distance/ (Math.cos(radian_latitud).abs * latitude_equivalence) )
-			range[:longitude][:max] = center[:longitude] + (distance/ (Math.cos(radian_latitud).abs * latitude_equivalence) )
-			range[:latitude][:min] = center[:latitude] - (distance/ latitude_equivalence )
-			range[:latitude][:max] = center[:latitude] + (distance/ latitude_equivalence )
+			radian_latitud = center["latitude"] * Math::PI/180
+			range[:longitude][:min] = center["longitude"] - (distance/ (Math.cos(radian_latitud).abs * latitude_equivalence) )
+			range[:longitude][:max] = center["longitude"] + (distance/ (Math.cos(radian_latitud).abs * latitude_equivalence) )
+			range[:latitude][:min] = center["latitude"] - (distance/ latitude_equivalence )
+			range[:latitude][:max] = center["latitude"] + (distance/ latitude_equivalence )
 			return range
 		end
 	end

@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   def sign_up
     @user = User.new(params[:user])
-    user_response = parse_create_user(params[:user])
+    pd = ParseData.new
+    user_response = pd.parse_create_user(params[:user])
     if user_response["sessionToken"] and user_response["objectId"]
       @user.parse_id = user_response["objectId"]
       @user.session_token = user_response["sessionToken"]
@@ -17,7 +18,8 @@ class UsersController < ApplicationController
   end
 
   def log_in
-    user_response = parse_login_user(params[:username],params[:password]) 
+    pd = ParseData.new
+    user_response = pd.parse_login_user(params[:username],params[:password]) 
     if user_response["sessionToken"] and user_response["objectId"]
       @user = User.where(parse_id:user_response["objectId"] ).first
       @user.session_token = user_response["sessionToken"]

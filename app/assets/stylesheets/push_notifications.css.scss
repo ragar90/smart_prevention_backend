@@ -1,0 +1,28 @@
+// Place all the styles related to the push_notifications controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.red_alert{background-color: #D4203D}
+.yellow_alert{background-color: #E8B40C}
+.green_alert{background-color: #42A267}
+h1.panic-text{
+	color: #F5F5F5;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50px;
+}
+.panic-button{
+	border-radius: 200px;
+	width: 300px;
+	height: 300px;
+	background-color: #F5F5F5;
+	display: inline-block;
+	position: absolute;
+	top:30%;
+	left: 40%;
+}
+a.button-link{
+	&:hover{text-decoration: none}
+	&:active{text-decoration: none}
+	&:visited{text-decoration: none}
+	text-decoration: none;
+}

@@ -1,4 +1,9 @@
 SmartPrevention::Application.routes.draw do
+  post "push_notifications/alert_disaster", as: :disaster_alert
+  post "push_notifications/disaster_finish", as: :disaster_conclude
+  post "push_notifications/normality_restored", as: :normality_restored
+  get "push_notifications/broadcast_alert", as: :broadcast_alert
+  
   scope :api do
     scope :users do
       post "/:parse_id/ping" => "users#ping", as: :ping
