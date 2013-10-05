@@ -51,7 +51,7 @@ module ActiveParse
   #Save object to parse             
   def save_to_parse
     if self.valid?
-      parser = ParseData.new(PARSE_APP_ID,PARSE_REST_API_KEY)   
+      parser = ParseData.new
       parse_attributes = self.to_parse_data      
       results = parser.parse_create_object(self.class.to_s,parse_attributes) 
       if results.has_key?("objectId")
@@ -70,9 +70,8 @@ module ActiveParse
   end  
   #Update object to parse    
   def update_to_parse 
-    @new_record = false 
     if self.valid?   
-      parser = ParseData.new(PARSE_APP_ID,PARSE_REST_API_KEY)   
+      parser = ParseData.new
       parse_attributes = self.to_parse_data
       results = parser.parse_update_object(self.class.to_s,self.parse_id,parse_attributes)
       if results.has_key?("updatedAt")
@@ -114,11 +113,12 @@ module ActiveParse
     
     #Returns a ParseData object  
     def parse_connection
-      @@parser = ParseData.new(PARSE_APP_ID,PARSE_REST_API_KEY)
+      @@parser ||= ParseData.new
     end    
     
-    def parse_query(query_params, klass=nil)
+    def parse_query(query_params={}, klass=nil)
       klass ||=  self.to_s
+      klass = klass == "User" ? "users" : klass 
       objects_results = []       
       parse_connection.parse_query(klass,query_params).each do |result| 
         objects_results << parse_connection.new_object_from_parse(klass,result)
@@ -140,8 +140,9 @@ module ActiveParse
         params["order"] = args[:order_by][:order].upcase == "DESC" ? "-#{fields}" : fields
       else
         params["order"] = "-createdAt"
-      end      
-      results = parse_connection.parse_query(self.to_s,params) 
+      end
+      klass = self.to_s == "User" ? "users" : self.to_s     
+      results = parse_connection.parse_query(klass,params) 
       results.each do |entity|      
         val = entity["objectId"]
         entity.delete("objectId")

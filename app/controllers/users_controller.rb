@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def log_in
-    user_response = parse_login_user(params[:username],params[:passwd]) 
+    user_response = parse_login_user(params[:username],params[:password]) 
     if user_response["sessionToken"] and user_response["objectId"]
       @user = User.where(parse_id:user_response["objectId"] ).first
       @user.session_token = user_response["sessionToken"]
@@ -34,8 +34,9 @@ class UsersController < ApplicationController
 
 
   def ping
-  	@user = User.where(id:params[:id])
-  	if @user.set_new_locations(params[:location])
+  	@user = User.where(parse_id:params[:parse_id]).first
+  	if @user.valid?
+      @user.set_new_locations(params[:location])
   		respond_to do |format|
   			format.json{ render json:{status: :saved}}
   		end
@@ -47,10 +48,11 @@ class UsersController < ApplicationController
   end
 
   def emergency_status
-  	@user = User.where(id:params[:id])
-  	@user.emergency_state = params[:emergency_state]
-  	if @user.save
-  	respond_to do |format|
+  	@user = User.where(parse_id:params[:parse_id])
+  	@user.emergency_state = params[:status]
+  	if @user.valid?
+     @user.update_to_parse
+  	 respond_to do |format|
   			format.json{ render json:{status: :saved}}
   		end
   	else
@@ -58,5 +60,17 @@ class UsersController < ApplicationController
   			format.json{ render json:{status: :failed, errors: @user.errors }}
   		end
   	end
+  end
+
+  def help
+    if params[:position] and params[:filters]
+      @results = User.get_filtered_arround_alerts(params[:position], params[:filters])
+    elsif params[:position]
+      @results = User.get_arround_alerts(params[:position])
+    elsif params[:filters]
+      @results = User.get_filtered_alerts[:filters]
+    else
+      @results = User.get_parse_all
+    end
   end
 end

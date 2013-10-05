@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(version: 20131004184143) do
 
   create_table "zones", force: true do |t|
     t.string   "name"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.float    "latitude_position"
+    t.float    "longitude_position"
     t.boolean  "zone_type"
+    t.string   "parse_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

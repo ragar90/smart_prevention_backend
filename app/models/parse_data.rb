@@ -13,7 +13,7 @@ class ParseData
     puts "Quering to https://api.parse.com/1/classes/#{class_name}"
     puts "Parameter => #{params}"
     url = URI.parse("https://api.parse.com/1/classes/#{class_name}")
-    req = create_api_connection(url,params,"get","query_string")
+    req = create_api_connection(url,params,"get","json")
     res= get_results(req,url)
     begin
       returned_data = JSON.parse res.body                 
@@ -59,7 +59,7 @@ class ParseData
     return returned_data
   end
 
-  def parse_update_object(class_name,id,params)                            
+  def parse_update_object(class_name,id,params)
 		puts ""
     puts "Quering to https://api.parse.com/1/classes/#{class_name}/#{id}"
     puts "Parameter => #{params}" 
@@ -79,7 +79,7 @@ class ParseData
     return returned_data
   end
 
-  def parse_push_notification(params)            
+  def parse_push_notification(params)
 		puts ""
     url = URI.parse("https://api.parse.com/1/push")
     req = create_api_connection(url,params,"post","json")
@@ -89,7 +89,7 @@ class ParseData
   end
   
 	#----Parse User Methods-----
-  def parse_get_user(id)       
+  def parse_get_user(id)
 		puts ""
 		puts "Quering to => https://api.parse.com/1/users/#{id}"
     url = URI.parse("https://api.parse.com/1/users/#{id}")
@@ -104,7 +104,7 @@ class ParseData
 		puts "Quering to => https://api.parse.com/1/users"      
 		puts "Params=>#{params}"
     url = URI.parse("https://api.parse.com/1/users")
-    req = create_api_connection(url,params,"get","query_string")
+    req = create_api_connection(url,params,"get","json")
     res= get_results(req,url)          
     returned_data = JSON.parse res.body    
     return returned_data["results"]
@@ -119,7 +119,7 @@ class ParseData
     return returned_data
   end   
 
-   def parse_login_user(username,passwd)         
+  def parse_login_user(username,passwd)         
 		puts ""
 		puts "Quering to => https://api.parse.com/1/login"
 	 	params = {:username => username, :password => passwd}
@@ -165,6 +165,7 @@ class ParseData
     if params_format=="json"  
       req.body = params.to_json  if params
       req.set_content_type("application/json")
+      puts req.body
     else
       unless params.nil?
         req.set_form_data(params, ';')
@@ -237,6 +238,9 @@ class ParseData
             entity.send("#{k}=",  DateTime.parse(v["iso"]) )
           when "Object"
             entity.send("#{v["className"].downcase}=", new_from_parse(v))
+          when "GeoPoint"
+            entity.send("latitude_position=", v["latitude"])
+            entity.send("longitude_position=", v["longitude"])
          end 
       else          
         if k == "objectId"        
