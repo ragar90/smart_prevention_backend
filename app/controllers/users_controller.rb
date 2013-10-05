@@ -73,9 +73,9 @@ class UsersController < ApplicationController
     elsif params[:position]
       @results = User.get_arround_alerts(params[:position])
     elsif params[:filters]
-      @results = User.get_filtered_alerts[:filters]
+      @results = User.get_filtered_alerts(params[:filters])
     else
-      @results = User.get_parse_all
+      @results = User.get_all_users
     end
   end
 

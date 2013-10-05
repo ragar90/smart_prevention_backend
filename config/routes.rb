@@ -1,4 +1,11 @@
 SmartPrevention::Application.routes.draw do
+  root :to => "home#index"
+  scope :home do
+    get "index"=>"home#index"
+    get "alerts"=>"home#alerts"
+    get "refuges"=>"home#refuges"
+    get "rescues"=>"home#rescues"
+  end
   post "push_notifications/alert_disaster", as: :disaster_alert
   post "push_notifications/disaster_finish", as: :disaster_conclude
   post "push_notifications/normality_restored", as: :normality_restored

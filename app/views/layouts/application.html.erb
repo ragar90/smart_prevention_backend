@@ -1,14 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <title>SmartPrevention</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Smart Prevention</title>
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	  <%=yield(:maps)%>
+  	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  	<%= csrf_meta_tags %>
 </head>
-<body>
-
-<%= yield %>
-
+<body class = "main-layout">
+	<header>
+		<%= image_tag "logo.png"%>
+	</header>
+		<nav>
+			<ul>
+				<li id="icon0"><%=link_to "INICIO", root_path %></li>
+				<li id="icon1"><%=link_to "ALERTAS", alerts_path%></li>
+				<li id="icon2"><%=link_to "REFUGIOS",refuges_path%></li>
+				<li id="icon4"><%=link_to "ENVIAR ALERTAS",broadcast_alert_path%></li>
+			</ul>
+		</nav>
+	<div id="run">
+		<%=yield%>
+	</div>
+	
 </body>
+
 </html>

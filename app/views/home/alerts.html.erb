@@ -1,0 +1,47 @@
+<%= content_for(:maps) do%>
+<style type="text/css">
+  #map {
+    margin: 0;
+    padding: 0;
+    border:solid 4px #CCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width:900px;
+    height:500px;
+    margin-bottom:20px;
+    margin-left: 50px;
+    left: 300px;
+    top:-50px;
+  }
+</style>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
+  var map;
+  var marker;
+  function initialize(){
+    map = new GMaps({
+            div: '#map',
+            zoom: 10,
+            lat: 13.67527,
+            lng: -89.28572,
+          });
+    <% @results.each do |result|%>
+    	<%if result[:latitude] and result[:longitude] %>
+    		marker = map.addMarker({
+                  lat: <%=result[:latitude] %>,
+                  lng: <%=result[:longitude]%>,
+                  title: "<%="#{result[:name]}-#{result[:status]}"%>"
+                });
+    	<%end%>
+    <%end%>
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<%end%>
+
+<div id = "map">
+	
+</div>
