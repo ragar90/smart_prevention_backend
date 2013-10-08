@@ -4,8 +4,7 @@ class CreateZones < ActiveRecord::Migration
       t.string :name
       t.float :latitude_position
       t.float :longitude_position
-      t.boolean :zone_type
-      t.string :parse_id
+      t.boolean :zone_type, default: true
 
       t.timestamps
     end

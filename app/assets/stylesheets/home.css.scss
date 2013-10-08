@@ -147,27 +147,19 @@ a:hover{
 }
 
 
-@keyframes myfirst
-{
-from {left:25px;}
-to {left:65px;}
+@keyframes myfirst{
+	from {left:25px;}
+	to {left:65px;}
 }
 
-@-webkit-keyframes myfirst /* Safari and Chrome */
-{
-from {left:25px;}
-to {left:65px;}
+@-webkit-keyframes myfirst /* Safari and Chrome */{
+	from {left:25px;}
+	to {left:65px;}
 }
-
-
 
 #map1, #map2, #map{
 	float:right;
 }
-
-
-
-
 
 .active{
 	background-color: #468E79;
@@ -175,9 +167,12 @@ to {left:65px;}
 	-webkit-transition-duration: 0.7s;
 }
 
-
-
-
-
-
-
+.zone{
+	float: left;
+	margin-top: -90px;
+	margin-left: -42px;
+	#map_search{}
+	.pin-btn{
+		background-color:#F5F4DC;
+	}
+}

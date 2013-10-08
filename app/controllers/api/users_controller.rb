@@ -1,45 +1,35 @@
 class UsersController < ApplicationController
+  include ApiAuthentication
+  before_action :authenticate_api
+  before_action :set_user, except: [:sign_up, :log_in, :help]
+
   def sign_up
-    @user = User.new
-    @user.email = params[:user][:email]
-    @user.username = params[:user][:username]
-    @user.password = params[:user][:password]
-    pd = ParseData.new
-    user_response = pd.parse_create_user(params[:user].permit!)
-    if user_response["sessionToken"] and user_response["objectId"]
-      @user.parse_id = user_response["objectId"]
-      @user.session_token = user_response["sessionToken"]
-      @user.save
+    @user = User.new(user_params)
+    if @user.save      
       respond_to do |format|
         format.json{render json:@user}
       end
     else
       respond_to do |format|
-        format.json{render json: user_response}
+        format.json{render json:{errors: @user.errors}}
       end
     end
   end
 
   def log_in
-    pd = ParseData.new
-    user_response = pd.parse_login_user(params[:username],params[:password]) 
-    if user_response["sessionToken"] and user_response["objectId"]
-      @user = User.where(parse_id:user_response["objectId"] ).first
-      @user.session_token = user_response["sessionToken"]
-      @user.save
-      respond_to do |format|
-        format.json{render json:@user}
-      end
-    else
-      respond_to do |format|
-        format.json{render json:user_response}
-      end
+    @user = User.find_and_authenticate(params[:email], params[:password])
+    respond_to do |format|
+      format.json{render json:@user}
     end
   end
 
+  def log_out
+    @user.session_token = nil
+    @user.save
+    render json: {message: "Te has desconectado, vuelve pronto"}
+  end
 
   def ping
-  	@user = User.where(parse_id:params[:parse_id]).first
   	if @user.valid?
       @user.set_new_locations(params[:location])
   		respond_to do |format|
@@ -53,10 +43,9 @@ class UsersController < ApplicationController
   end
 
   def emergency_status
-  	@user = User.where(parse_id:params[:parse_id])
   	@user.emergency_state = params[:status]
   	if @user.valid?
-     @user.update_to_parse
+     @user.save
   	 respond_to do |format|
   			format.json{ render json:{status: :saved}}
   		end
@@ -77,19 +66,19 @@ class UsersController < ApplicationController
     else
       @results = User.get_all_users
     end
+    respond_to do |format|
+      format.json{render json: {results: @results}}
+    end
   end
 
   def edit
-    @user = User.where(parse_id: params[:parse_id]).first
     respond_to do |format|
       format.json{render @user}
     end
   end
 
   def update
-    @user = User.where(parse_id: params[:parse_id]).first
-    if @user.update_attributes(params[:user].permit!)
-      @user.update_to_parse
+    if @user.update_attributes(user_params)
       respond_to do |format|
         format.json{render json: @user}
       end
@@ -98,5 +87,22 @@ class UsersController < ApplicationController
         format.json{ render json: @user.errors}
       end
     end
+  end
+
+  def last_positions
+    @positions = @user.last_positions
+    respond_to do |format|
+      format.json{render json {results: @positions}}
+    end
+  end
+
+  private
+
+  def set_user
+    @user = User.where(id: params[:id]).first
+  end
+
+  def user_params
+    params[:user].permit!
   end
 end

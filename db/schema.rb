@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20131004184143) do
 
-  create_table "positiions", force: true do |t|
+  create_table "positions", force: true do |t|
     t.integer  "user_id"
     t.float    "latitude"
     t.float    "longitud"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20131004184143) do
 
   create_table "users", force: true do |t|
     t.string   "name"
-    t.string   "username"
     t.string   "twitter_account"
     t.string   "facebook_account"
     t.string   "email"
+    t.string   "password_digest"
     t.string   "blood_type"
     t.string   "alergies",                 default: "none"
     t.text     "home_addres"
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(version: 20131004184143) do
     t.float    "longitude_position"
     t.string   "emergency_contact_number"
     t.string   "medications_taken",        default: "none"
-    t.string   "password"
-    t.string   "parse_id"
     t.string   "session_token"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,8 +44,7 @@ ActiveRecord::Schema.define(version: 20131004184143) do
     t.string   "name"
     t.float    "latitude_position"
     t.float    "longitude_position"
-    t.boolean  "zone_type"
-    t.string   "parse_id"
+    t.boolean  "zone_type",          default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
