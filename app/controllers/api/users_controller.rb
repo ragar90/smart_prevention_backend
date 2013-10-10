@@ -92,7 +92,7 @@ class Api::UsersController < ApplicationController
   def last_positions
     @positions = @user.last_positions
     respond_to do |format|
-      format.json{render json {results: @positions}}
+      format.json{render json: {results: @positions}}
     end
   end
 
