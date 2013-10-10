@@ -1,6 +1,6 @@
-class UsersController < ApplicationController
-  include ApiAuthentication
-  before_action :authenticate_api
+class Api::UsersController < ApplicationController
+  #include ApiAuthentication
+  #before_action :authenticate_api
   before_action :set_user, except: [:sign_up, :log_in, :help]
 
   def sign_up
