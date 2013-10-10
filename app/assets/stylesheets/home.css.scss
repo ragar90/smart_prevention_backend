@@ -34,7 +34,7 @@ body {
 body.main-layout{
 	background-repeat: no-repeat;
 	background-position: center 80%;
-	background-image: url(runing.png);
+	background-image: image-url(runing.png);
 }
 ol, ul {
 	list-style: none;
@@ -142,14 +142,14 @@ a:hover{
 }
 
 #icon0{
-	background-image: url(icon0.png);
+	background-image: image-url(icon0.png);
 	background-repeat: no-repeat;
 	background-position: left center;
 }
 
 
 #icon1{
-	background-image: url(icon1.png);
+	background-image: image-url(icon1.png);
 	background-repeat: no-repeat;
 	background-position: left center;
 }
@@ -157,19 +157,19 @@ a:hover{
 
 
 #icon2{
-	background-image: url(icon2.png);
+	background-image: image-url(icon2.png);
 	background-repeat: no-repeat;
 	background-position: left center;
 }
 
 #icon3{
-	background-image: url(icon3.png);
+	background-image: image-url(icon3.png);
 	background-repeat: no-repeat;
 	background-position: left center;
 }
 
 #icon4{
-	background-image: url(icon4.png);
+	background-image: image-url(icon4.png);
 	background-repeat: no-repeat;
 	background-position: left center;
 }
