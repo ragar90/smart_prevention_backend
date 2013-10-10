@@ -66,8 +66,7 @@
   }
   function codeAddress(){
     GMaps.geocode({
-      var name = $('#map_search').val();
-      address: name + ",El Salvador",
+      address: $('#map_search').val() + ",El Salvador",
       callback: function(results, status) {
         if (status == 'OK') {
             var latlng = results[0].geometry.location;
@@ -84,7 +83,7 @@
               $('#zone_zone_type').click()
             }
             else{
-              alert("No se encontro el lugar: \"" + name + "\"")
+              alert("No se encontro el lugar especificado");
             }
         }
       }
