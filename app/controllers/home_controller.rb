@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   end
 
   def alerts
-    @results = User.get_all_users.map{|u|{name: u.name, status: u.emergency_state, latitude: u.latitude_position, longitude: u.longitude_position}}
+    @results = User.all.map{|u|{name: u.name, status: u.emergency_state, latitude: u.latitude_position, longitude: u.longitude_position}}
   end
 
   def rescues

@@ -30,7 +30,7 @@ class ZonesController < ApplicationController
     respond_to do |format|
       if @zone.save
         format.html { redirect_to @zone, notice: 'Zone was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @zone }
+        format.json { render json: @zone , status: :created, location: @zone }
       else
         format.html { render action: 'new' }
         format.json { render json: @zone.errors, status: :unprocessable_entity }
@@ -70,6 +70,6 @@ class ZonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def zone_params
-      params[:zone]
+      params[:zone].permit!
     end
 end

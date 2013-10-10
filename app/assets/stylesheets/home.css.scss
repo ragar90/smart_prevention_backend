@@ -63,6 +63,44 @@ header{
 	height: 82px;
 	padding-top: 25px;
 	border-bottom: solid 6px #2C3947;
+	form.pin_zone_form{
+		float:right;
+		margin-right:55px !important;	
+		.check-box-lbl{
+			color:#f5f4dc;
+		}
+		h1{
+			color:#f5f4dc;
+			font-size:12px;
+			padding-bottom:5px !important;
+		}
+		.zone_check{
+			clear:both;
+		}
+
+		.zone_name{
+			padding-left:10px;
+			height:23px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+		}
+		.pin-btn{
+			background-color:#61b09b;
+			border:none;
+			border-bottom: 4px solid #2c8b6f;
+			padding:5px 10px 5px 10px;
+			color:#FFF;
+			font-weight:bold;
+			&:hover{
+				border:none;
+				border-bottom: 6px solid #2c8b6f;
+				padding:5px 10px 5px 10px;
+				transition-duration: 0.3s;
+				-webkit-transition-duration: 0.3s;
+			}
+		}
+	}
 }
 
 
