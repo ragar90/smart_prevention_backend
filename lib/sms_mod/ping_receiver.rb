@@ -7,7 +7,7 @@ module SmsMod
 
 		def receive_pings_from_users
 			puts "Getting last 5 seconds sms's"
-			messages = @client.account.sms.messages.list.select{|sms| sms.from!="+14043342471" and DateTime.parse(sms.date_sent) > 5.seconds.ago}
+			messages = @client.account.sms.messages.list.select{|sms| sms.from!="+14043342471" and DateTime.parse(sms.date_sent) > 10.minutes.ago}
 			messages.each do |sms|
 				hash = JSON.parse(sms.body)
 				unless hash["id"].nil?
