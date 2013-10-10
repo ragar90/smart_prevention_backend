@@ -83,7 +83,10 @@
               zone = {lat: lat, lng: lng, name: $('#map_search').val() } 
               addMarker(zone)
               $('#map_search').val("");
-              $('#zone_zone_type').click()
+              var val = $( "input:hidden[name='zone[zone_type]']" ).val()
+              if(val == "0"){
+                $('#zone_zone_type').click()
+              }
             }
             else{
                   alert("No se encontro el lugar especificado");
